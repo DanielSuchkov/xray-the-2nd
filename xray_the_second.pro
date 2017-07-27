@@ -3,6 +3,13 @@ CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    renderer.cpp \
+    framebuffer.cpp
 
 LIBS += -lSDL2
+
+HEADERS += \
+    renderer.h \
+    framebuffer.h \
+    utils.h
