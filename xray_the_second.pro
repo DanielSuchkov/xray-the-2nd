@@ -19,3 +19,5 @@ HEADERS += \
     utils.h \
     geometrymanager.h \
     tests/geometry.h
+
+QMAKE_CXXFLAGS_WARN_ON += -Wextra -Wall

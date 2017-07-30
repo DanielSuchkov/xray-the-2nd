@@ -11,11 +11,6 @@
 #include "renderer.h"
 
 
-void setPixel(SDL_Surface* s, int x, int y, uint32_t color) {
-    assert(s->format->BytesPerPixel == 4);
-    *(static_cast<uint32_t *>(s->pixels) + ((s->pitch >> 2) * y) + x) = color;
-}
-
 int runApp(int, char*[]) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
