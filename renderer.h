@@ -1,8 +1,7 @@
 #pragma once
 #include "framebuffer.h"
 
-class Renderer
-{
+class Renderer {
 public:
     Renderer() {
 

@@ -5,11 +5,13 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     renderer.cpp \
-    framebuffer.cpp
+    framebuffer.cpp \
+    geometrymanager.cpp
 
 LIBS += -lSDL2
 
 HEADERS += \
     renderer.h \
     framebuffer.h \
-    utils.h
+    utils.h \
+    geometrymanager.h

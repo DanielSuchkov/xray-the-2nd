@@ -78,7 +78,6 @@ int main(int, char*[]) {
         r.draw(drawableSurface);
 
         SDL_UpperBlit(drawableSurface.getSdlSurface(), nullptr, screenSurface, &viewRect);
-
         SDL_UpdateWindowSurface(window.get());
     }
 

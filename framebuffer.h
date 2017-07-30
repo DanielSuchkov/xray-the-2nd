@@ -4,8 +4,7 @@
 #include <SDL2/SDL.h>
 #include "utils.h"
 
-class FramebufferRGB
-{
+class FramebufferRGB {
 public:
     FramebufferRGB(int h, int w)
         : s(get_unique_ptr(createRgbU32Surface(h, w), SDL_FreeSurface))
