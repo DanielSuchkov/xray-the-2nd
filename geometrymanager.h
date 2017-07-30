@@ -19,9 +19,7 @@ class Sphere {
 class GeometryManager {
 public:
 
-    Intersection nearestIntersection(const glm::vec3 &orig, const glm::vec3 &dir) const {
-
-    }
+    Intersection nearestIntersection(const glm::vec3 &orig, const glm::vec3 &dir) const ;
 
 private:
     std::vector<Sphere> geo_;

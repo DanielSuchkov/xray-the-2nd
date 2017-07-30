@@ -1,5 +1,8 @@
+include(gtest_dependency.pri)
+
 TEMPLATE = app
 CONFIG += console c++14
+CONFIG += thread
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -14,4 +17,5 @@ HEADERS += \
     renderer.h \
     framebuffer.h \
     utils.h \
-    geometrymanager.h
+    geometrymanager.h \
+    tests/geometry.h

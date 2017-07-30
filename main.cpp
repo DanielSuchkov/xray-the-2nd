@@ -16,7 +16,7 @@ void setPixel(SDL_Surface* s, int x, int y, uint32_t color) {
     *(static_cast<uint32_t *>(s->pixels) + ((s->pitch >> 2) * y) + x) = color;
 }
 
-int main(int, char*[]) {
+int runApp(int, char*[]) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         return 1;
@@ -82,6 +82,20 @@ int main(int, char*[]) {
     }
 
     SDL_Quit();
-
     return 0;
 }
+
+#ifndef RUN_TESTS
+int main(int argc, char* argv[]) {
+    return runApp(argc, argv);
+}
+#else
+#include "tests/geometry.h"
+
+#include <gtest/gtest.h>
+int main(int argc, char *argv[])
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+#endif
