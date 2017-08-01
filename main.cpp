@@ -38,7 +38,8 @@ int runApp(int, char*[]) {
     SDL_Surface* screenSurface = SDL_GetWindowSurface(window.get());
 
     Renderer r;
-    FramebufferRGB drawableSurface(SCREEN_WIDTH, SCREEN_HEIGHT);
+    ScreenBufferRGB drawableSurface(SCREEN_WIDTH, SCREEN_HEIGHT);
+    FramebufferRGB fb(SCREEN_WIDTH, SCREEN_HEIGHT);
     if (!drawableSurface) {
         printf("Failed to create surface!\n");
         return 1;
@@ -70,8 +71,8 @@ int runApp(int, char*[]) {
             }
         }
 
-        r.draw(drawableSurface);
-
+        r.draw(fb);
+        fb.fillScreenBuffer(drawableSurface);
         SDL_UpperBlit(drawableSurface.getSdlSurface(), nullptr, screenSurface, &viewRect);
         SDL_UpdateWindowSurface(window.get());
     }

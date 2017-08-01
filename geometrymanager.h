@@ -1,5 +1,5 @@
 #pragma once
-#include "glm/glm.hpp"
+#include "utils.h"
 #include <cstdint>
 #include <cmath>
 #include <cassert>
@@ -9,15 +9,15 @@ using SurfaceId = int32_t;
 
 struct Intersection {
     SurfaceId sid; // -1 == no intersection
-    glm::vec3 normal;
+    vec3 normal;
     float distance;
 };
 
-constexpr Intersection no_intersect { -1, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f };
+constexpr Intersection no_intersect { -1, vec3(0.0f, 0.0f, 0.0f), 0.0f };
 
 struct Ray {
-    glm::vec3 orig;
-    glm::vec3 dir;
+    vec3 orig;
+    vec3 dir;
 };
 
 class Sphere {
@@ -33,7 +33,7 @@ public:
         return sid;
     }
 
-    const glm::vec3 &getPos() const {
+    const vec3& getPos() const {
         return pos;
     }
 
@@ -41,7 +41,7 @@ public:
         return r;
     }
 
-    Intersection intersect(const Ray &ray) const {
+    Intersection intersect(const Ray& ray) const {
         auto p = ray.orig - this->pos;
         auto r2 = r * r;
         auto p_d = glm::dot(p, ray.dir);
@@ -64,14 +64,14 @@ public:
 
 private:
     SurfaceId sid;
-    glm::vec3 pos;
+    vec3 pos;
     float r;
 };
 
 
 class GeometryManager {
 public:
-    Intersection nearestIntersection(const Ray &ray) const {
+    Intersection nearestIntersection(const Ray& ray) const {
         Intersection nearest_isect = no_intersect;
         for (auto& g : this->geo) {
             Intersection isect = g.intersect(ray);
@@ -82,7 +82,7 @@ public:
         return nearest_isect;
     }
 
-    void addGeo(const Sphere &sph) {
+    void addGeo(const Sphere& sph) {
         geo.push_back(sph);
     }
 
