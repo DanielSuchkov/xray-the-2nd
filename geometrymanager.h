@@ -82,6 +82,10 @@ public:
         return nearest_isect;
     }
 
+    void addGeo(const Sphere &sph) {
+        geo.push_back(sph);
+    }
+
 private:
     std::vector<Sphere> geo;
 };

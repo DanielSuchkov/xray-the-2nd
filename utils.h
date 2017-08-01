@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <memory>
 #include <cstdint>
+#include "glm/glm.hpp"
 
 template <typename T>
 using deleter_t = void (*)(T*);
@@ -25,3 +26,6 @@ using SdlWindowUptr = unique_ptr_with_deleter_t<SDL_Window>;
 inline uint32_t colorU32(uint32_t r, uint32_t g, uint32_t b) {
     return (r << 16) | (g << 8) | b;
 }
+
+using glm::vec3;
+using glm::vec4;
