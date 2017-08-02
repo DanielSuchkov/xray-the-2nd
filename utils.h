@@ -3,6 +3,7 @@
 #include <memory>
 #include <cstdint>
 #include <algorithm>
+#define GLM_FORCE_NO_CTOR_INIT
 #include "glm/glm.hpp"
 
 template <typename T>
@@ -24,6 +25,7 @@ unique_ptr_with_deleter_t<T> get_unique_ptr(T* t, deleter_t<T> del) {
 using SdlSurfaceUptr = unique_ptr_with_deleter_t<SDL_Surface>;
 using SdlWindowUptr = unique_ptr_with_deleter_t<SDL_Window>;
 
+using glm::vec2;
 using glm::vec3;
 using glm::vec4;
 
@@ -38,3 +40,5 @@ inline uint32_t f32_to_byte(float f) {
 inline uint32_t color_to_u32(const vec3& c) {
     return color_u32(f32_to_byte(c.r), f32_to_byte(c.g), f32_to_byte(c.b));
 }
+
+float thread_rng_f32();

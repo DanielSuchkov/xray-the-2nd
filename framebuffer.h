@@ -64,6 +64,10 @@ public:
         return fb[this->idx(x, y)];
     }
 
+    void add_to_pixel(int x, int y, const C& color) {
+        fb[this->idx(x, y)] += color;
+    }
+
     int get_height() const {
         return h;
     }

@@ -9,7 +9,8 @@ CONFIG -= qt
 SOURCES += main.cpp \
     renderer.cpp \
     framebuffer.cpp \
-    geometrymanager.cpp
+    geometrymanager.cpp \
+    utils.cpp
 
 LIBS += -lSDL2
 
