@@ -32,8 +32,8 @@ TEST(Geometry, GeometryManager1SphCollision) {
     Sphere sphere(0, vec3(0.0f, 1.0f, 0.0f), 2.0f);
     Ray ray { vec3(0.0, 1.0, -5.0), vec3(0.0, 0.0, 1.0) };
     GeometryManager gm;
-    gm.addGeo(sphere);
-    auto isect = gm.nearestIntersection(ray);
+    gm.add_geo(sphere);
+    auto isect = gm.nearest_intersection(ray);
     EXPECT_EQ(isect.sid, 0);
     EXPECT_FLOAT_EQ(isect.distance, 3.0f);
     EXPECT_EQ(isect.normal, vec3(0.0, 0.0, -1.0));
@@ -44,9 +44,9 @@ TEST(Geometry, GeometryManager2SphCollision) {
     Sphere sphere2(0, vec3(0.0f, 1.0f, 1.0f), 2.0f);
     Ray ray { vec3(0.0, 1.0, -5.0), vec3(0.0, 0.0, 1.0) };
     GeometryManager gm;
-    gm.addGeo(sphere);
-    gm.addGeo(sphere2);
-    auto isect = gm.nearestIntersection(ray);
+    gm.add_geo(sphere);
+    gm.add_geo(sphere2);
+    auto isect = gm.nearest_intersection(ray);
     EXPECT_EQ(isect.sid, 0);
     EXPECT_FLOAT_EQ(isect.distance, 3.0f);
     EXPECT_EQ(isect.normal, vec3(0.0, 0.0, -1.0));

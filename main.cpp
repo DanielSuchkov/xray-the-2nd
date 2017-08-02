@@ -11,13 +11,13 @@
 #include "renderer.h"
 
 
-int runApp(int, char*[]) {
+int run_app(int, char*[]) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         return 1;
     }
 
-    const bool draw_centered = true;
+    const bool DRAW_CENTERED = true;
     const int SCREEN_WIDTH = 300;
     const int SCREEN_HEIGHT = 300;
 
@@ -35,22 +35,22 @@ int runApp(int, char*[]) {
         printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
         return 1;
     }
-    SDL_Surface* screenSurface = SDL_GetWindowSurface(window.get());
+    SDL_Surface* screen_surface = SDL_GetWindowSurface(window.get());
 
     Renderer r;
-    ScreenBufferRGB drawableSurface(SCREEN_WIDTH, SCREEN_HEIGHT);
+    ScreenBufferRGB drawable_surface(SCREEN_WIDTH, SCREEN_HEIGHT);
     FramebufferRGB fb(SCREEN_WIDTH, SCREEN_HEIGHT);
-    if (!drawableSurface) {
+    if (!drawable_surface) {
         printf("Failed to create surface!\n");
         return 1;
     }
     bool quit = false;
 
-    SDL_Rect viewRect;
-    viewRect.x = 0;
-    viewRect.y = 0;
-    viewRect.w = SCREEN_WIDTH;
-    viewRect.h = SCREEN_HEIGHT;
+    SDL_Rect view_rect;
+    view_rect.x = 0;
+    view_rect.y = 0;
+    view_rect.w = SCREEN_WIDTH;
+    view_rect.h = SCREEN_HEIGHT;
 
     SDL_Event e;
 
@@ -62,18 +62,18 @@ int runApp(int, char*[]) {
 
             if (e.type == SDL_WINDOWEVENT) {
                 if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
-                    if (draw_centered) {
-                        viewRect.x = std::max(e.window.data1/2 - viewRect.w/2, 0);
-                        viewRect.y = std::max(e.window.data2/2 - viewRect.h/2, 0);
+                    if (DRAW_CENTERED) {
+                        view_rect.x = std::max(e.window.data1/2 - view_rect.w/2, 0);
+                        view_rect.y = std::max(e.window.data2/2 - view_rect.h/2, 0);
                     }
-                    screenSurface = SDL_GetWindowSurface(window.get());
+                    screen_surface = SDL_GetWindowSurface(window.get());
                 }
             }
         }
 
         r.draw(fb);
-        fb.fillScreenBuffer(drawableSurface);
-        SDL_UpperBlit(drawableSurface.getSdlSurface(), nullptr, screenSurface, &viewRect);
+        fb.fill_screen_buffer(drawable_surface);
+        SDL_UpperBlit(drawable_surface.get_SDL_surface(), nullptr, screen_surface, &view_rect);
         SDL_UpdateWindowSurface(window.get());
     }
 
@@ -83,7 +83,7 @@ int runApp(int, char*[]) {
 
 #ifndef RUN_TESTS
 int main(int argc, char* argv[]) {
-    return runApp(argc, argv);
+    return run_app(argc, argv);
 }
 #else
 #include "tests/geometry.h"

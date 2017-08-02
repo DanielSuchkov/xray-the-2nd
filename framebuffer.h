@@ -8,21 +8,21 @@
 class ScreenBufferRGB {
 public:
     ScreenBufferRGB(int h, int w)
-        : s(get_unique_ptr(createRgbU32Surface(h, w), SDL_FreeSurface))
+        : s(get_unique_ptr(create_rgb_u32_surface(h, w), SDL_FreeSurface))
         , h(h)
         , w(w) {}
 
-    void setPixel(int x, int y, uint32_t color) {
+    void set_pixel(int x, int y, uint32_t color) {
         assert(s.get()->format->BytesPerPixel == 4);
         auto idx = ((s.get()->pitch >> 2) * y) + x;
         static_cast<uint32_t*>(s.get()->pixels)[idx] = color;
     }
 
-    int getHeight() const {
+    int get_height() const {
         return h;
     }
 
-    int getWidth() const {
+    int get_width() const {
         return w;
     }
 
@@ -30,7 +30,7 @@ public:
         return !!s;
     }
 
-    SDL_Surface* getSdlSurface() {
+    SDL_Surface* get_SDL_surface() {
         return s.get();
     }
 
@@ -40,7 +40,7 @@ private:
     int w;
 
 private:
-    static SDL_Surface* createRgbU32Surface(int w, int h) {
+    static SDL_Surface* create_rgb_u32_surface(int w, int h) {
         //The final optimized image
         SDL_Surface* surface = SDL_CreateRGBSurface(0, w, h, 32, uint32_t(0xFF) << 16, 0xFF << 8, 0xFF << 0, 0x00);
         return surface;
@@ -56,28 +56,28 @@ public:
         , h(h)
         , w(w) {}
 
-    void setPixel(int x, int y, const C& color) {
+    void set_pixel(int x, int y, const C& color) {
         fb[this->idx(x, y)] = color;
     }
 
-    const C& getPixel(int x, int y) const {
+    const C& get_pixel(int x, int y) const {
         return fb[this->idx(x, y)];
     }
 
-    int getHeight() const {
+    int get_height() const {
         return h;
     }
 
-    int getWidth() const {
+    int get_width() const {
         return w;
     }
 
-    void fillScreenBuffer(ScreenBufferRGB& sb) {
-        assert(sb.getHeight() == getHeight());
-        assert(sb.getWidth() == getWidth());
+    void fill_screen_buffer(ScreenBufferRGB& sb) {
+        assert(sb.get_height() == get_height());
+        assert(sb.get_width() == get_width());
         for (int y = 0; y < h; ++y) {
             for (int x = 0; x < w; ++x) {
-                sb.setPixel(x, y, colorToU32(this->getPixel(x, y)));
+                sb.set_pixel(x, y, color_to_u32(this->get_pixel(x, y)));
             }
         }
     }

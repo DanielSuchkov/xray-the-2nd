@@ -27,14 +27,14 @@ using SdlWindowUptr = unique_ptr_with_deleter_t<SDL_Window>;
 using glm::vec3;
 using glm::vec4;
 
-inline uint32_t colorU32(uint32_t r, uint32_t g, uint32_t b) {
+inline uint32_t color_u32(uint32_t r, uint32_t g, uint32_t b) {
     return (r << 16) | (g << 8) | b;
 }
 
-inline uint32_t f32ToByte(float f) {
+inline uint32_t f32_to_byte(float f) {
     return uint32_t(std::min(f * 255.0f, 255.0f));
 }
 
-inline uint32_t colorToU32(const vec3& c) {
-    return colorU32(f32ToByte(c.r), f32ToByte(c.g), f32ToByte(c.b));
+inline uint32_t color_to_u32(const vec3& c) {
+    return color_u32(f32_to_byte(c.r), f32_to_byte(c.g), f32_to_byte(c.b));
 }

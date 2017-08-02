@@ -11,9 +11,11 @@ struct Intersection {
     SurfaceId sid; // -1 == no intersection
     vec3 normal;
     float distance;
-};
 
-constexpr Intersection no_intersect { -1, vec3(0.0f, 0.0f, 0.0f), 0.0f };
+    static constexpr Intersection zero() {
+        return { -1, vec3(0.0f, 0.0f, 0.0f), 0.0f };
+    }
+};
 
 struct Ray {
     vec3 orig;
@@ -22,22 +24,22 @@ struct Ray {
 
 class Sphere {
 public:
-    Sphere(SurfaceId sid, glm::vec3 pos, float r)
+    Sphere(SurfaceId sid, vec3 pos, float r)
         : sid(sid)
         , pos(pos)
         , r(r) {
         assert(r > 0.0f);
     }
 
-    SurfaceId getSurfaceId() const {
+    SurfaceId get_surface_id() const {
         return sid;
     }
 
-    const vec3& getPos() const {
+    const vec3& get_pos() const {
         return pos;
     }
 
-    float getRadius() const {
+    float get_radius() const {
         return r;
     }
 
@@ -46,12 +48,12 @@ public:
         auto r2 = r * r;
         auto p_d = glm::dot(p, ray.dir);
         if (p_d > 0.0f || glm::dot(p, p) < r2) {
-            return no_intersect;
+            return Intersection::zero();
         }
         auto a = p - ray.dir * p_d;
         auto a2 = glm::dot(a, a);
         if (a2 > r2) {
-            return no_intersect;
+            return Intersection::zero();
         }
 
         auto h = std::sqrt(r2 - a2);
@@ -71,8 +73,8 @@ private:
 
 class GeometryManager {
 public:
-    Intersection nearestIntersection(const Ray& ray) const {
-        Intersection nearest_isect = no_intersect;
+    Intersection nearest_intersection(const Ray& ray) const {
+        Intersection nearest_isect = Intersection::zero();
         for (auto& g : this->geo) {
             Intersection isect = g.intersect(ray);
             if (nearest_isect.sid == -1 || isect.distance < nearest_isect.distance) {
@@ -82,7 +84,7 @@ public:
         return nearest_isect;
     }
 
-    void addGeo(const Sphere& sph) {
+    void add_geo(const Sphere& sph) {
         geo.push_back(sph);
     }
 
